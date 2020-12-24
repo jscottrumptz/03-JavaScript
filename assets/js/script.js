@@ -16,7 +16,7 @@ let types = [];
 // String variables holding every possible character value for each character type
 let lowerLetters = "abcdefghijklmnopqrstuvwxyz"
 let upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-let specialChars =  "!#$%&'()*+,-./:;<=>?@[^_`{|}~"
+let specialChars = "!#$%&'()*+,-./:;<=>?@[^_`{|}~"
 let numeric = "0123456789"
 
 // Function that generates a random character from an array or string value
@@ -24,9 +24,12 @@ function getRandomCharacter(characterType) {
   return characterType[Math.floor(Math.random() * Math.floor(characterType.length))];
 }
 
+// Function that collects and validates user input for the length of the password
 function lengthInput(){
+
   // Get desired password length from the user
   passwordLength = prompt("How many characters would you like your password?");
+
   // Check to see if the password is too short or too long
   if ((passwordLength < 8)||(passwordLength > 128)){
     alert("Please enter a numeric value between 8-128")
@@ -34,18 +37,23 @@ function lengthInput(){
   } 
 }
 
+// Function the collects and validates user input for character types to be used durring password generation
 function typeInput(){
-  // Get desired character types to include in the password
+
+  // Get user's desired character types to include in the password
   num = confirm("Would you like to include Numbers?");
   lCase = confirm("Would you like to include Lower Case Letters?");
   uCase = confirm("Would you like to include Upper Case Letters?");
   spChar = confirm("Would you like to include Special Characters?");
+
   // Check to see if at least one character type was selected
   if ((num === false) && (lCase === false) && (uCase === false) && (spChar === false)){
     alert("Please pick at least one character type");
     typeInput()
   }
-  // The following if statements include switch numbers to the types array based on user input
+  // The following if statements insert numbers into the types array. These numbers
+  // correspond to switch cases within the generatePassword function that determine 
+  // available character types to be chosen durring password generation
   if (num === true){
     types.push(1);
   }
@@ -64,12 +72,14 @@ function typeInput(){
 function generatePassword() {
   // Variable within the function to hold password characters as they are generated
   let pw = ""
-  
+
   // Call functions to recieve and test the user's input
   lengthInput();
   typeInput();
+
   // For loop that generates a random character based on user type and password length input
   for (var i = 0; i < passwordLength; i++) {
+
     // switch with values that are populated by the types array
     switch(types[Math.floor(Math.random() * Math.floor(types.length))]){
       case 1:
