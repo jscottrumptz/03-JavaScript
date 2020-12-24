@@ -29,14 +29,14 @@ function lengthInput(){
   // Get desired password length from the user
   passwordLength = prompt("How many characters would you like your password?");
 
-  // Check to see if the password is too short or too long
+  // Check to see if the password is too short or too long and make sure it is a numeric value
   if ((passwordLength < 8)||(passwordLength > 128)||(isNaN(passwordLength) === true)){
     alert("Please enter a numeric value between 8-128")
     lengthInput()
   } 
 }
 
-// Function the collects and validates user input for character types to be used durring password generation
+// Function collects and validates user input for character types to be used durring password generation
 function typeInput(){
 
   // Get user's desired character types to include in the password
@@ -82,7 +82,7 @@ function generatePassword() {
   // For loop that generates a random character based on user type and password length input
   for (var i = 0; i < passwordLength; i++) {
 
-    // switch with values that are populated by the types array
+    // switch with case values that are populated randomly by the types array
     switch(types[Math.floor(Math.random() * Math.floor(types.length))]){
       case 1:
         pw = pw + getRandomCharacter(numeric);
