@@ -15,9 +15,9 @@ Password Generator that will create a password from 8-128 characters with prompt
 * JavaScript
 
 ## Website
-PUT LINK HERE
+https://jscottrumptz.github.io/03-javaScript-password-generator/
 
-![image](PUT IMAGE LINK HERE)
+![image](https://user-images.githubusercontent.com/74981245/103103750-ee705300-45e8-11eb-89bf-8acfca737c20.png)
 
 ## Contribution
 Made with ❤️ by J Scott Rumptz
