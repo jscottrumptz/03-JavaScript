@@ -72,7 +72,7 @@ function generatePassword() {
   // Variable within the function to hold password characters as they are generated
   let pw = ""
 
-  // Reset array before selection
+  // Reset the types array before user selection
   types = [];
 
   // Call functions to recieve and test the user's input
