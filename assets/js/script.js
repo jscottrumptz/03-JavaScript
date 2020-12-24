@@ -44,7 +44,19 @@ function typeInputTest(){
 
 // Function that generates a random password based on user input and selection criteria
 function generatePassword() {
-  return "Generated Password"
+  // Variable within the function to hold password characters as they are generated
+  let pw = ""
+  // Call functions to test the input
+  lengthInputTest();
+  typeInputTest();
+  // For loop that generates characters based on user password length input
+  for (var i = 0; i < passwordLength; i++) {
+    pw = pw + getRandomCharacter(numeric);
+    pw = pw + getRandomCharacter(lowerLetters)
+    pw = pw + getRandomCharacter(upperLetters)
+    pw = pw + getRandomCharacter(specialChars)
+  }
+  return pw;
 }
 
 // BEGIN Testing getRandomCharacter function to console
