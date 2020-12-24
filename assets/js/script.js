@@ -2,11 +2,16 @@
 var generateBtn = document.querySelector("#generate");
 
 // Set default values for password length and included character types
+// These values are set durring the lengthInput and typeInput functions
 let passwordLength = 0;
 let num = false;
 let lCase = false;
 let uCase = false;
 let spChar = false;
+
+// Set a blank array to hold values for the gereratePassword function's switch
+// These values are added durring the typeInput function based on user selection
+let types = [];
 
 // String variables holding every possible character value for each character type
 let lowerLetters = "abcdefghijklmnopqrstuvwxyz"
@@ -19,17 +24,17 @@ function getRandomCharacter(characterType) {
   return characterType[Math.floor(Math.random() * Math.floor(characterType.length))];
 }
 
-function lengthInputTest(){
+function lengthInput(){
   // Get desired password length from the user
   passwordLength = prompt("How many characters would you like your password?");
   // Check to see if the password is too short or too long
   if ((passwordLength < 8)||(passwordLength > 128)){
     alert("Please enter a numeric value between 8-128")
-    lengthInputTest()
+    lengthInput()
   } 
 }
 
-function typeInputTest(){
+function typeInput(){
   // Get desired character types to include in the password
   num = confirm("Would you like to include Numbers?");
   lCase = confirm("Would you like to include Lower Case Letters?");
@@ -37,8 +42,21 @@ function typeInputTest(){
   spChar = confirm("Would you like to include Special Characters?");
   // Check to see if at least one character type was selected
   if ((num === false) && (lCase === false) && (uCase === false) && (spChar === false)){
-    alert("Please pick at least on character type");
-    typeInputTest()
+    alert("Please pick at least one character type");
+    typeInput()
+  }
+  // The following if statements include switch numbers to the types array based on user input
+  if (num === true){
+    types.push(1);
+  }
+  if (lCase === true){
+    types.push(2);
+  }
+  if (uCase === true){
+    types.push(3);
+  }
+  if (spChar === true){
+    types.push(4);
   }
 }
 
@@ -46,36 +64,31 @@ function typeInputTest(){
 function generatePassword() {
   // Variable within the function to hold password characters as they are generated
   let pw = ""
-  // Call functions to test the input
-  lengthInputTest();
-  typeInputTest();
-  // For loop that generates characters based on user password length input
+  
+  // Call functions to recieve and test the user's input
+  lengthInput();
+  typeInput();
+  // For loop that generates a random character based on user type and password length input
   for (var i = 0; i < passwordLength; i++) {
-    pw = pw + getRandomCharacter(numeric);
-    pw = pw + getRandomCharacter(lowerLetters)
-    pw = pw + getRandomCharacter(upperLetters)
-    pw = pw + getRandomCharacter(specialChars)
+    // switch with values that are populated by the types array
+    switch(types[Math.floor(Math.random() * Math.floor(types.length))]){
+      case 1:
+        pw = pw + getRandomCharacter(numeric);
+        break;
+      case 2:
+        pw = pw + getRandomCharacter(lowerLetters);
+        break;
+      case 3:
+        pw = pw + getRandomCharacter(upperLetters);
+        break;
+      case 4:
+        pw = pw + getRandomCharacter(specialChars);
+        break;
+    }
   }
+  // Returns the generated password to the writePassword function
   return pw;
 }
-
-// BEGIN Testing getRandomCharacter function to console
-for ( let i = 0; i < 10; i++) {
-  console.log(getRandomCharacter(numeric));
-}
-
-for ( let i = 0; i < 10; i++) {
-  console.log(getRandomCharacter(lowerLetters));
-}
-
-for ( let i = 0; i < 10; i++) {
-  console.log(getRandomCharacter(upperLetters));
-}
-
-for ( let i = 0; i < 10; i++) {
-  console.log(getRandomCharacter(specialChars));
-}
-// END Testing getRandomCharacter function to console
 
 // Write password to the #password input
 function writePassword() {
