@@ -27,9 +27,9 @@ function getRandomCharacter(characterType) {
 // Function that collects and validates user input for the length of the password
 function lengthInput(){
   // Get desired password length from the user
-  passwordLength = prompt("How many characters would you like your password?");
+  passwordLength = prompt("How many characters long would you like your password?");
 
-  // Check to see if the password is too short or too long and make sure it is a numeric value
+  // Check to see if the requested password is too short or too long and make sure it is a numeric value
   if ((passwordLength < 8)||(passwordLength > 128)||(isNaN(passwordLength) === true)){
     alert("Please enter a numeric value between 8-128")
     lengthInput()
@@ -79,8 +79,25 @@ function generatePassword() {
   lengthInput();
   typeInput();
 
-  // For loop that generates a random character based on user type and password length input
-  for (var i = 0; i < passwordLength; i++) {
+  // For loop that makes sure at least one of each user selected character type is present in the password
+  for (var i = 0; i < types.length; i++) {
+    switch(types[i]){
+      case 1:
+        pw = pw + getRandomCharacter(numeric);
+        break;
+      case 2:
+        pw = pw + getRandomCharacter(lowerLetters);
+        break;
+      case 3:
+        pw = pw + getRandomCharacter(upperLetters);
+        break;
+      case 4:
+        pw = pw + getRandomCharacter(specialChars);
+        break;
+    }
+  }
+  // For loop that generates a random character based on user type and password length input for the rest of the password
+  for (var i = 0; i < (passwordLength - types.length); i++) {
 
     // switch with case values that are populated randomly by the types array
     switch(types[Math.floor(Math.random() * Math.floor(types.length))]){
@@ -98,8 +115,9 @@ function generatePassword() {
         break;
     }
   }
-  // Returns the generated password to the writePassword function
-  return pw;
+  // Returns the generated password after randomly shuffling the pw string to the writePassword function
+  // This last line of code was taken from Joel Mellon on this thread (https://stackoverflow.com/questions/3943772/how-do-i-shuffle-the-characters-in-a-string-in-javascript)
+  return pw.split('').sort(function(){return 0.5-Math.random()}).join('');
 }
 
 // Write password to the #password input
